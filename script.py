@@ -3,16 +3,17 @@ from bs4 import BeautifulSoup
 import time
 
 
-def track(url: str, page = 1):
+def track(url: str, page=1):
+    print("")
     # Retrieve the page where we want to do Scrapping
-    retrieve = requests.get(url+str(page))
+    retrieve = requests.get(url + str(page))
     # Formatting of the resulting content
     formatter = BeautifulSoup(retrieve.content, "html.parser")
     # Take all the anime tags from the page
     formatted_content = formatter.find_all("article", class_="item se episodes")
     # Track of each tag
     for content in formatted_content:
-       # Retrieve data of a tag
+        # Retrieve data of a tag
         data = content.find("div", class_="data")
         episode = data.find("a").get_text()
         publication = data.find("span").get_text()
@@ -20,7 +21,7 @@ def track(url: str, page = 1):
         print(f"{episode}\n{publication}\n{title}\n")
         time.sleep(2)
 
-       
+
 URL_PAGE = "https://wwv.jetanimes.com/episodes/page/"
 
 track(URL_PAGE)
@@ -48,10 +49,3 @@ while True:
     else:
         print("Close !")
         break
-    
-
-
-        
-    
-
-
